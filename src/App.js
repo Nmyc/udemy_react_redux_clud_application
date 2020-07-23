@@ -13,19 +13,27 @@ import "./App.css"
 // }
 
 const App = () => {
+  const profiles = [
+    {name: "James", age: 10}, 
+    {name: "Mike", age: 5},
+    {name: "Jessica"}
+  ];
+
   return (
     <div>
-      <Dog />
-      <Dog />
-      <Dog />
-      <Dog />
-      <Dog />
+      {profiles.map((profile, index) => {
+        return <User name = {profile.name} age={profile.age} key={index}/>
+      })}
     </div>
   )
 }
 
-const Dog = () => {
-  return <div>Bow-wow!!</div>
+const User = (props) => {
+return <div>Hi, I am {props.name}. I am {props.age} years old.</div>
+}
+
+User.defaultProps = {
+  age: 1
 }
 
 export default App;
