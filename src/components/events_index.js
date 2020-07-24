@@ -4,6 +4,17 @@ import { readEvents } from '../actions'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 
+// import { withStyles, makeStyles } from '@material-ui/core/styles'
+import Table from '@material-ui/core/Table'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import Paper from '@material-ui/core/Paper'
+import TableBody from '@material-ui/core/TableBody'
+// import Checkbox from '@material-ui/core/Checkbox'
+import Button from '@material-ui/core/Button'
+
 class EventsIndex extends React.Component { 
   // イベント一覧を取得
   componentDidMount() {
@@ -14,35 +25,40 @@ class EventsIndex extends React.Component {
   renderEvents() {
     return _.map(this.props.events, (event, index) => {
       return (
-        <tr key={ index }>
-          <td>{ event.id }</td>
-          <td>
+        <TableRow key={ index }>
+          <TableCell>{ event.id }</TableCell>
+          <TableCell>
             <Link to={`/events/${event.id}`}>
               { event.title }
             </Link>
-          </td>
-          <td>{ event.body }</td>
-        </tr>
+          </TableCell>
+          <TableCell>{ event.body }</TableCell>
+        </TableRow>
       )
     })
   }
-
+  
   render() {
     return (
       <React.Fragment>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Body</th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.renderEvents() }
-          </tbody>
-        </table>
-        <Link to="/events/new">New Event</Link>
+        <TableContainer component={Paper}>
+          <Table aria-label='customized table'>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Body</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              { this.renderEvents() }
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Button variant='contained' color='primary' href='/events/new'>
+          {/* <Link to="/events/new">New Event</Link> */}
+          +
+        </Button>
       </React.Fragment>
       );
     }
