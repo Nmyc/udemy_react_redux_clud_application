@@ -14,6 +14,8 @@ import Paper from '@material-ui/core/Paper'
 import TableBody from '@material-ui/core/TableBody'
 // import Checkbox from '@material-ui/core/Checkbox'
 import Button from '@material-ui/core/Button'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
 
 class EventsIndex extends React.Component { 
   // イベント一覧を取得
@@ -55,10 +57,13 @@ class EventsIndex extends React.Component {
             </TableBody>
           </Table>
         </TableContainer>
-        <Button variant='contained' color='primary' href='/events/new'>
-          {/* <Link to="/events/new">New Event</Link> */}
-          +
-        </Button>
+        <Fab
+          href='/events/new'
+          color='primary'
+          size='medium'
+        >
+         <AddIcon />
+        </Fab>
       </React.Fragment>
       );
     }

@@ -5,6 +5,9 @@ import { Field, reduxForm } from 'redux-form'
 
 import { postEvents } from '../actions'
 
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+
 class EventsNew extends React.Component {
     constructor(props) {
         super(props)
@@ -14,10 +17,14 @@ class EventsNew extends React.Component {
     renderField(field) {
         const { input, label, type, meta: { touched, error } } = field
         return (
-            <div>
-                <input {...input} placeholder={label} />
-                {touched && error && <span>{error}</span>}
-            </div>
+            <TextField
+                placeholder={label} 
+                label={label}
+                type={type}
+                error = {!!(touched && error)}
+                helperText={touched && error}
+                {...input}
+            />
         )
     }
 
@@ -29,16 +36,28 @@ class EventsNew extends React.Component {
     render() {
         const { handleSubmit, pristine, submitting, invalid } = this.props
 
+        const style = { margin: 12 }
+
         return (
             <form onSubmit={handleSubmit(this.onSubmit)}>
                 <div>
                     <Field label="Title" name="title" type="text" component={this.renderField}/>
-                    <Field label="Body" name="body" type="text" component={this.renderField}/>
                 </div>
                 <div>
-                    <input type="submit" value="Submit" disabled={pristine || submitting || invalid} />
-                    <Link to='/'>Cancel</Link>
+                    <Field label="Body" name="body" type="text" component={this.renderField}/>
                 </div>
+                <Button
+                    type='submit'
+                    disabled={pristine || submitting || invalid}
+                    color='primary'
+                    variant='contained'
+                >Submit</Button>
+                <Button
+                    href='/'
+                    color='inherit'
+                    style={style}
+                    variant='contained'
+                >Cancel</Button>
             </form>
         )
     }
